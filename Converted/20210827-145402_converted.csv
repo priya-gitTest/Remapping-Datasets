@@ -1,0 +1,6 @@
+Id_new,Normal2,Normal2_Unit,Normal3,Normal3_Unit,Normal4,Normal5#a,Normal5#b,Normal5_Unit#a,Normal6,Normal6_Unit,Normal7,Normal7_Unit,Norma8
+A,a,A_UNIT,,,1,,,,1,4,a,4,
+B,b,A_UNIT,,,2,,,,1,4,b,4,
+C,mapping missing,A_UNIT,,,3,,,,1,4,,4,
+B,b,A_UNIT,,,4,,,,1,4,,4,
+C,a,A_UNIT,,,1,,,,1,4,c,4,
