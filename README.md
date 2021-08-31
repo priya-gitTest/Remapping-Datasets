@@ -7,8 +7,11 @@
 
 ## How to use
 For how to use it, see the instructions in the table Explanation in conversion.xlsx
+* Jupyter Notebook: it will ask which Excel to use for mapping & configuration
+* From command line: python conversion.py conversion.xlsx (other Excel can be used)
 
 ## What it can do
+- You can have multiple conversion.xlsx; each with its unique name, own mapping & configuration
 - Substitute IDs based on key list
 - Remap variables with or without value conversion
 - Remap Option group Variables to Check Box group Variables (granted only one option can be remapped per entry)
