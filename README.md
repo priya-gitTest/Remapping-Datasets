@@ -1,4 +1,7 @@
-Remapping Datasets
+# Remapping Datasets
+
+* no coding required, only requirement is to run a python script or a Jupyter Notebook
+* all mapping and onfigurations via the included Excel
 
 For how to use it, see the instructions in the table Explanation in conversion.xlsx
 - Substitute IDs based on key list
