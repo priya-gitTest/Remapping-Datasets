@@ -4,10 +4,36 @@
 import pandas as pd
 import json
 import numpy as np
+import sys
+import os
 from datetime import datetime
 
+# class to nicely exit when no conversion excel was added
+class StopExecution(Exception):
+    def _render_traceback_(self):
+        pass
+
+
+cont = True
 # read converstion table
-conversion_excel = 'conversion.xlsx'
+print(''*4)
+
+if len(sys.argv)<2:
+    print('Please specify an Excel with mapping and configuration')
+    print('e.g.: python conversion.py conversion.xlsx')
+    cont = False
+
+if cont == True and not os.path.isfile('./'+sys.argv[1]):
+    print(f'{sys.argv[0]} does not exist, please specify an Excel with mapping and configuration')
+    print('e.g.: python conversion.py conversion.xlsx')
+    cont = False
+
+if not cont:
+    print(''*4)
+    raise StopExecution
+
+conversion_excel = sys.argv[1] #'conversion.xlsx'
+
 sheet_name='Conversion_Table'
 conversion_table = pd.read_excel(conversion_excel, sheet_name=sheet_name, index_col=None)
 sheet_name='Key_Table'
@@ -125,3 +151,5 @@ file_name = converted_dir+f'/{datetime.now():%Y%m%d-%H%M%S}_'+converted_file
 df.to_csv(file_name+'.csv', sep=converted_separator, index=False)
 df.to_excel(file_name+'.xlsx', index=False)
 
+print(''*4)
+print(f'Finished, the timestamped output (CSV and Excel) can be found in {converted_dir}')

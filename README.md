@@ -2,6 +2,7 @@
 
 ## Requirements
 * no coding required, only requirement is to run a python script or a Jupyter Notebook (so either python or jupyter must be installed)
+** pandas and openpyxl must be installed
 * all mapping and onfigurations via the included Excel
 
 ## How to use
