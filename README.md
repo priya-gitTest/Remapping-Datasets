@@ -1,9 +1,13 @@
 # Remapping Datasets
 
-* no coding required, only requirement is to run a python script or a Jupyter Notebook
+## Requirements
+* no coding required, only requirement is to run a python script or a Jupyter Notebook (so either python or jupyter must be installed)
 * all mapping and onfigurations via the included Excel
 
+## How to use
 For how to use it, see the instructions in the table Explanation in conversion.xlsx
+
+## What it can do
 - Substitute IDs based on key list
 - Remap variables with or without value conversion
 - Remap Option group Variables to Check Box group Variables (granted only one option can be remapped per entry)
@@ -12,6 +16,7 @@ For how to use it, see the instructions in the table Explanation in conversion.x
 - Removes all 'redudant' variables (non mapped variables in source)
 - Orders the variables based on the Excel order list of target variables
 
+## The output
 Remapping creates a time stamped:
 - CSV, and
 - Excel
