@@ -44,9 +44,6 @@ if cont:
     # read data
     df = pd.read_csv(source_dir + '/' + source_file, index_col=None)
 
-    # ordered list of columns
-    column_order = []
-
     # go through the conversion table to make the changes
     for row in conversion_table.iterrows():
         # reading the necessary variables
@@ -55,12 +52,8 @@ if cont:
         mv = row[1]['Map_Variable']
         con = row[1]['Conversion']
 
-        # add empty column when not mapped
-
-        if mv != mv or mv not in df.columns:
-            df[nv] = ''
-            column_order.append(nv)
-        else:
+        # only do stuff when there is a mapping
+        if mv == mv:
             # convert the conversion to a dictionary
             if con == con and str(con)[0] =='{':
                 res = json.loads(con)
@@ -76,7 +69,6 @@ if cont:
                     df[nv] = df[nv].astype('string')
                     # make sure if a value is missed, that it is visible
                     df[nv] = df[nv].map(res).fillna('mapping missing')
-                column_order.append(nv)
 
             if conversion_type == 'check2option' and con == con:
                 # create empty list of all the checkbox variables
@@ -88,7 +80,6 @@ if cont:
                     df[checkbox] = df[checkbox].map({1: value})
                 # join the checkbox columns into target column
                 df[nv] = df[subcolumns].apply(lambda x: ','.join(x.dropna().astype(str)), axis=1)
-                column_order.append(nv)
                 # remmve all the check box columns
                 df.drop(subcolumns, axis=1, inplace=True)
 
@@ -104,7 +95,6 @@ if cont:
                     checkbox = nv + '#' + value
                     # add the values of the old variable
                     df[checkbox] = df[mv]
-                    column_order.append(checkbox)
                     # add the value '1' if correct, leave empty otherwise
                     df[checkbox] = df[checkbox].map({str(counter): '1'}).fillna('')
                     counter += 1
@@ -115,19 +105,17 @@ if cont:
             if conversion_type == 'unit':
                 # copy the values
                 df[nv] = df[mv]
-                column_order.append(nv)
                 # add the units when not empty
                 if df[nv].dtype == 'O':
-                    df.loc[df[nv] != '',nv] = con
+                    df.loc[df[nv] != '',nv] = str(con)
                 else:
-                    df.loc[df[nv].notnull(),nv] = con
+                    df.loc[df[nv].notnull(),nv] = str(con)
                     df[nv].replace(np.nan, '', regex=True, inplace=True)
 
             # replacing keys
             if conversion_type == 'id':
                 # copy the values
                 df[nv] = df[mv]
-                column_order.append(nv)
                 # convert key_table into dictionary
                 res = key_table.to_dict('dict')
                 res = {str(key):str(value) for key, value in res['Key_New'].items()}
@@ -135,6 +123,35 @@ if cont:
                 # make sure if a value is missed, that it is visible
                 df[nv] = df[nv].map(res).fillna('mapping missing')
 
+
+    # Setting the correct order, repeating the loop, but easier and more robust to do it here
+    # ordered list of columns
+    column_order = []
+    for row in conversion_table.iterrows():
+        # reading the necessary variables
+        nv = row[1]['New_Variable']
+        toc = row[1]['TypeOfConversion']
+        con = row[1]['Conversion']
+        conversion_type = str(toc).lower()
+
+        # add missing variables except when conversion_type == option2check
+        if nv not in df.columns and conversion_type != 'option2check':
+            df[nv] = ''
+            column_order.append(nv)
+
+        # add missing variables for conversion_type == option2check, requirement is that there is a mapping
+        elif con == con and str(con)[0] =='{' and conversion_type=='option2check':
+            res = json.loads(con)
+            for key, value in res.items():
+                # new checkbox variable
+                checkbox = nv + '#' + value
+                column_order.append(checkbox)
+        # in all other cases add the variable to the list
+        else:
+            column_order.append(nv)              
+                
+            
+    # sort the dataframe in the correct order            
     df=df[column_order]            
 
 
