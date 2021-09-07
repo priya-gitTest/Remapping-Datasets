@@ -1,8 +1,8 @@
 # Remapping Datasets
 
 ##$ Video links
-Short version: https://youtu.be/xTrYKaCdxC0
-Detailed version: https://youtu.be/LTvXEqFve1E
+- Short version: https://youtu.be/xTrYKaCdxC0
+- Detailed version: https://youtu.be/LTvXEqFve1E
 
 ## Requirements
 * no coding required, only requirement is to run a python script or a Jupyter Notebook (so either python or jupyter must be installed)
