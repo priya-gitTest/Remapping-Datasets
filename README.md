@@ -1,6 +1,6 @@
 # Remapping Datasets
 
-##$ Video links
+## Video links
 - Short version: https://youtu.be/xTrYKaCdxC0
 - Detailed version: https://youtu.be/LTvXEqFve1E
 
