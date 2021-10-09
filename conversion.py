@@ -20,6 +20,19 @@ def correct_date(a,b):
     except:
         return 'ERR: ' + str(a)
 
+def duration_days(x, con):
+    '''
+    Duration in days, requires data date fields are in ISO 8601
+    '''
+    try:
+        end = datetime.strptime(x[mv], '%Y-%m-%d')
+        start = datetime.strptime(x[con], '%Y-%m-%d')
+        return (end-start).days
+    except:
+        return 'ERR'
+    
+    
+    
 
 cont = True
 # read converstion table
@@ -81,6 +94,10 @@ if cont:
             # converting dates
             if conversion_type == 'date':
                 df[nv] = df.apply(lambda x: correct_date(x[mv], con), axis=1)
+                                
+            # duration in days
+            if conversion_type == 'duration':
+                df[nv] = df.apply(lambda x: duration_days(x, con), axis=1)
             
             # normal variable swapping with value conversion
             if conversion_type == 'normal':

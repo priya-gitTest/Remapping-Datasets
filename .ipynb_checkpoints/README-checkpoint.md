@@ -3,6 +3,7 @@
 ## What is new (2021-10-09)
 - Swap function added: A->B and B->A
 - Date conversion function added: converts a date format into ISO8601 (%Y-%m-%d)
+- Duration function added: duration between two valid ISO8601 dates
 
 ## Video links
 - Short version: https://youtu.be/xTrYKaCdxC0
@@ -25,6 +26,7 @@ For how to use it, see the instructions in the table Explanation in conversion.x
 - Date conversion: give a date format (e.g. %m/%d/%Y and this will be converted to %Y-%m-%d (ISO8601)
      Keep in mind: small caps for m (Month) and d (Day), always at % in front of it, divisor '-', '/', etc
      can be anything. Errors will be displayed int the output with: ERR: <original value>
+- Add variable containing duration in days based on two valid ISO8601 dates
 - Remap variables with or without value conversion
 - Remap Option group Variables to Check Box group Variables (granted only one option can be remapped per entry)
 - Remap Check Box group Variables to Option group Variables (when multi check box, then the 'option' group gets multi options comma seperated)
