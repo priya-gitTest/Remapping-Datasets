@@ -8,6 +8,18 @@ import sys
 import os
 from datetime import datetime
 
+# functions
+def correct_date(a,b):
+    '''
+    Dates are usually an issue, this function converts certain given formats into ISO8601, %Y-%m-%d format
+    '''
+    print(f'{a:}, {b:}')
+    try:
+        a = datetime.strptime(str(a), b)
+        return datetime.strftime(a, '%Y-%m-%d')
+    except:
+        return 'ERR: ' + str(a)
+
 
 cont = True
 # read converstion table
@@ -60,6 +72,16 @@ if cont:
 
             # convert to lower case just in case of typo
             conversion_type = str(toc).lower()
+            
+            # swapping the variables
+            if conversion_type == 'swap':
+                df.rename(columns={nv: 'mv', mv: 'nv'}, inplace=True)
+                df.rename(columns={'mv': mv, 'nv': nv}, inplace=True)
+            
+            # converting dates
+            if conversion_type == 'date':
+                df[nv] = df.apply(lambda x: correct_date(x[mv], con), axis=1)
+            
             # normal variable swapping with value conversion
             if conversion_type == 'normal':
                 df = df.rename(columns={mv: nv})

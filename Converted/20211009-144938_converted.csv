@@ -1,0 +1,6 @@
+Id_new,Normal2,Normal2_Unit,Normal3,Normal3_Unit,Normal4,Normal5#option1,Normal5#option2,Normal5_Unit#option1,Normal6,Normal6_Unit,Normal7,Normal7_Unit,Norma8,A_set,B_set,Date
+A,a,A_UNIT,1,1,a,1,,MeasureUnit,1.0,4,1,5,,A1,B1,ERR: 2020-10-10 00:00:00
+C,b,A_UNIT,2,1,b,,1,,1.0,4,1,5,,A2,B2,ERR: 2019-04-03 00:00:00
+A,mapping missing,A_UNIT,,,,,,,,,1,5,,A1,B1,ERR: nan
+B,b,A_UNIT,"1,2",1,,,1,,,,1,5,,A4,B4,ERR: 2929-11-05 00:00:00
+mapping missing,mapping missing,A_UNIT,1,1,c,1,,MeasureUnit,1.0,4,1,5,,A5,B5,ERR: 7-9
