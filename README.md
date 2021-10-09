@@ -19,6 +19,8 @@ For how to use it, see the instructions in the table Explanation in conversion.x
 * Jupyter Notebook: it will ask which Excel to use for mapping & configuration
 * From command line: python conversion.py conversion.xlsx (other Excel can be used)
 
+![example](https://github.com/flow4u/Remapping-Datasets/blob/main/Remapping%20Datasets.gif)
+
 ## What it can do
 - You can have multiple conversion.xlsx; each with its unique name, own mapping & configuration
 - Substitute IDs based on key list
