@@ -161,6 +161,9 @@ if cont:
 
             # replacing keys
             if conversion_type == 'id':
+                # crelate list with missing keys
+                id_set = list(set(df[mv]))
+                df_missing_keys = pd.DataFrame({'MissingKeys': [x for x in id_set if x not in list(key_table.index)]})
                 # copy the values
                 df[nv] = df[mv]
                 # convert key_table into dictionary
@@ -216,6 +219,8 @@ if cont:
     df_empty.to_csv(file_name + ".csv", sep=converted_separator, index=False)
     file_name = converted_dir + f"/{stamp}_" + converted_file + '_NON_MAPPED'
     df_non_mapped.to_csv(file_name + ".csv", sep=converted_separator, index=False)
+    file_name = converted_dir + f"/{stamp}_" + converted_file + '_MISSING_KEYS'
+    df_missing_keys.to_csv(file_name + ".csv", sep=converted_separator, index=False)
 
     print(''*4)
     print(f'Finished, the timestamped output (CSV and Excel) can be found in {converted_dir}')
