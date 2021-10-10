@@ -68,6 +68,10 @@ if cont:
 
     # read data
     df = pd.read_csv(source_dir + '/' + source_file, index_col=None)
+    source_variables = df.columns
+    
+    # keep track of all the variables that are mapped
+    mapped_variables = []
 
     # go through the conversion table to make the changes
     for row in conversion_table.iterrows():
@@ -76,6 +80,7 @@ if cont:
         toc = row[1]['TypeOfConversion']
         mv = row[1]['Map_Variable']
         con = row[1]['Conversion']
+        mapped_variables.append(mv)
 
         # only do stuff when there is a mapping
         if mv == mv:
@@ -88,6 +93,9 @@ if cont:
             
             # swapping the variables
             if conversion_type == 'swap':
+                # add nv to mapped_variables otherwise it causes a false negative
+                mapped_variables.append(nv)
+                # swapping the column names
                 df.rename(columns={nv: 'mv', mv: 'nv'}, inplace=True)
                 df.rename(columns={'mv': mv, 'nv': nv}, inplace=True)
             
@@ -162,6 +170,12 @@ if cont:
                 # make sure if a value is missed, that it is visible
                 df[nv] = df[nv].map(res).fillna('mapping missing')
 
+    # creating list with empty variables
+    df_empty = pd.DataFrame({'VarsWithoutValues': [x for x in df.columns if df[x].empty]})
+
+    # creating list with non-maped variables
+    df_non_mapped = pd.DataFrame({'NonMappedVars': [x for x in source_variables if x not in mapped_variables]})           
+                
 
     # Setting the correct order, repeating the loop, but easier and more robust to do it here
     # ordered list of columns
@@ -198,6 +212,10 @@ if cont:
     file_name = converted_dir+f'/{datetime.now():%Y%m%d-%H%M%S}_'+converted_file
     df.to_csv(file_name+'.csv', sep=converted_separator, index=False)
     df.to_excel(file_name+'.xlsx', index=False)
+    file_name = converted_dir + f"/{stamp}_" + converted_file + '_EMPTY'
+    df_empty.to_csv(file_name + ".csv", sep=converted_separator, index=False)
+    file_name = converted_dir + f"/{stamp}_" + converted_file + '_NON_MAPPED'
+    df_non_mapped.to_csv(file_name + ".csv", sep=converted_separator, index=False)
 
     print(''*4)
     print(f'Finished, the timestamped output (CSV and Excel) can be found in {converted_dir}')
